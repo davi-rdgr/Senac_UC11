@@ -141,7 +141,7 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        
+
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
@@ -154,7 +154,19 @@ public class listagemVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void listarProdutos() {
+        ProdutosDAO produtos = new ProdutosDAO();
+        List<String[]> produto = produtos.listarProdutos();
 
+        DefaultTableModel modelo = (DefaultTableModel) listaProdutos.getModel();
+        modelo.setRowCount(0);
+
+        try {
+            for (String[] linha : produto) {
+                modelo.addRow(linha);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -204,6 +216,5 @@ public class listagemVIEW extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable listaProdutos;
     // End of variables declaration//GEN-END:variables
-
 
 }
