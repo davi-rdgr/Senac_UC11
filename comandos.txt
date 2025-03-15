@@ -1,0 +1,8 @@
+- git init
+- git add .
+- git commit -m "Projeto inicial."
+- git remote add origin  https://github.com/davi-rdgr/Senac_UC11.git
+- git push origin master
+- git add README.MD
+- git commit -m "Adicionado README.MD"
+- git push origin master
