@@ -44,6 +44,20 @@ public class ProdutosDAO {
         }
     }
 
+    public void venderProduto(int id) {
+        Connection conn = conectaDAO.getConnection();
+        
+        String SQL = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
+
+        try (PreparedStatement psp = conn.prepareStatement(SQL)) {
+            psp.setInt(1, id);
+            psp.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Item alterado para status de vendido!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível vender o item");
+        }
+    }
+
     public List<String[]> listarProdutos() {
         List<String[]> produtos = new ArrayList<>();
         String SQL = "SELECT id, nome, valor, status, status FROM produtos";
