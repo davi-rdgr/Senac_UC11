@@ -46,7 +46,7 @@ public class ProdutosDAO {
 
     public void venderProduto(int id) {
         Connection conn = conectaDAO.getConnection();
-        
+
         String SQL = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
 
         try (PreparedStatement psp = conn.prepareStatement(SQL)) {
@@ -60,7 +60,7 @@ public class ProdutosDAO {
 
     public List<String[]> listarProdutos() {
         List<String[]> produtos = new ArrayList<>();
-        String SQL = "SELECT id, nome, valor, status, status FROM produtos";
+        String SQL = "SELECT id, nome, valor, status FROM produtos";
 
         try (Connection conn = conectaDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(SQL)) {
 
@@ -79,6 +79,29 @@ public class ProdutosDAO {
             e.printStackTrace();
         }
         return produtos;
+    }
+
+    public List<String[]> listarProdutosVendidos() {
+        List<String[]> produtosVendido = new ArrayList<>();
+        String SQL = "SELECT id, nome, valor, status FROM produtos WHERE status = 'Vendido' ";
+
+        try (Connection conn = conectaDAO.getConnection(); PreparedStatement stmt = conn.prepareStatement(SQL)) {
+
+            try (ResultSet resultado = stmt.executeQuery()) {
+                while (resultado.next()) {
+                    String[] linha = {
+                        resultado.getString("id"),
+                        resultado.getString("nome"),
+                        String.valueOf(resultado.getInt("valor")),
+                        resultado.getString("status")
+                    };
+                    produtosVendido.add(linha);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return produtosVendido;
     }
 
 }
